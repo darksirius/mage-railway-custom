@@ -1,0 +1,13 @@
+mage-ai
+pandas
+numpy
+requests
+sqlalchemy
+psycopg2-binary
+pymysql
+oracledb
+hdbcli
+pyarrow
+openpyxl
+python-dotenv
+cryptography
