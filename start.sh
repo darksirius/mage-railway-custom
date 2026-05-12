@@ -16,7 +16,7 @@ echo "PORT=$PORT"
 
 if [ ! -f "$USER_CODE_PATH/metadata.yaml" ]; then
   echo "No se encontró proyecto Mage. Inicializando proyecto: $PROJECT_NAME"
-  mage init "$PROJECT_NAME" || true
+  mage init "$PROJECT_NAME"
 fi
 
 mkdir -p "$USER_CODE_PATH/logs"

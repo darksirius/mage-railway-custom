@@ -4,8 +4,8 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=1 \
     MAGE_ENV=production \
-    MAGE_CODE_PATH=/home/src \
     PROJECT_NAME=mage_project \
+    MAGE_CODE_PATH=/home/src \
     USER_CODE_PATH=/home/src/mage_project \
     HIDE_ENV_VAR_VALUES=1
 
@@ -20,20 +20,17 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     unixodbc-dev \
     && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /home/src
+WORKDIR /app
 
-COPY requirements.txt /home/src/requirements.txt
+COPY requirements.txt /app/requirements.txt
+COPY start.sh /app/start.sh
 
-RUN python -m pip install --no-cache-dir "pip==24.0" \
-    && python -m pip install --no-cache-dir -r /home/src/requirements.txt \
-    && python -m pip install --no-cache-dir --force-reinstall "Jinja2==3.1.6" \
-    && python -c "import jinja2; print('Jinja2 version:', jinja2.__version__)" \
-    && python -c "import mage_ai, pandas, pyarrow, jinja2, markupsafe; print('Dependencias OK')"
+RUN chmod +x /app/start.sh \
+    && python -m pip install --no-cache-dir "pip==24.0" \
+    && python -m pip install --no-cache-dir -r /app/requirements.txt \
+    && python -m pip install --no-cache-dir --force-reinstall "Jinja2==3.1.6" "MarkupSafe>=2.1.5" \
+    && python -c "import mage_ai, pandas, pyarrow, jinja2, markupsafe; print('Dependencias OK:', jinja2.__version__)"
 
-COPY . /home/src/
+EXPOSE 6789
 
-RUN chmod +x /home/src/start.sh
-
-EXPOSE 8080
-
-CMD ["/home/src/start.sh"]
+CMD ["/app/start.sh"]
