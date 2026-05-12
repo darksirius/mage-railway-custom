@@ -25,7 +25,8 @@ WORKDIR /app
 COPY requirements.txt /app/requirements.txt
 
 RUN pip install --upgrade pip setuptools wheel \
-    && pip install -r /app/requirements.txt
+    && pip install --no-cache-dir -r /app/requirements.txt \
+    && python -c "import mage_ai, pandas, pyarrow, jinja2, markupsafe; print('Dependencias OK')"
 
 COPY start.sh /app/start.sh
 RUN chmod +x /app/start.sh
