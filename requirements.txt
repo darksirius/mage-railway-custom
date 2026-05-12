@@ -3,8 +3,8 @@ pandas==2.2.3
 numpy==1.26.4
 pyarrow==15.0.2
 polars
-jinja2>=3.1.5
-markupsafe>=2.1.5
+Jinja2==3.1.6
+MarkupSafe>=2.1.5
 requests
 sqlalchemy
 psycopg2-binary

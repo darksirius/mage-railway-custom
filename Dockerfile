@@ -26,8 +26,9 @@ COPY requirements.txt /home/src/requirements.txt
 
 RUN pip install --upgrade pip setuptools wheel \
     && pip install --no-cache-dir -r /home/src/requirements.txt \
-    && pip install --no-cache-dir --upgrade "Jinja2>=3.1.5" \
-    && python -c "import mage_ai, pandas, pyarrow, jinja2, markupsafe; print('Dependencias OK - Jinja2:', jinja2.__version__)"
+    && pip install --no-cache-dir --force-reinstall "Jinja2==3.1.6" \
+    && python -c "import jinja2; print('Jinja2 version:', jinja2.__version__)" \
+    && python -c "import mage_ai, pandas, pyarrow, jinja2, markupsafe; print('Dependencias OK')"
 
 COPY . /home/src/
 
