@@ -14,3 +14,4 @@ hdbcli
 openpyxl
 python-dotenv
 cryptography
+psycopg2-binary
