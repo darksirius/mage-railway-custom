@@ -24,9 +24,9 @@ WORKDIR /home/src
 
 COPY requirements.txt /home/src/requirements.txt
 
-RUN pip install --upgrade pip setuptools wheel \
-    && pip install --no-cache-dir -r /home/src/requirements.txt \
-    && pip install --no-cache-dir --force-reinstall "Jinja2==3.1.6" \
+RUN python -m pip install --no-cache-dir "pip==24.0" \
+    && python -m pip install --no-cache-dir -r /home/src/requirements.txt \
+    && python -m pip install --no-cache-dir --force-reinstall "Jinja2==3.1.6" \
     && python -c "import jinja2; print('Jinja2 version:', jinja2.__version__)" \
     && python -c "import mage_ai, pandas, pyarrow, jinja2, markupsafe; print('Dependencias OK')"
 
