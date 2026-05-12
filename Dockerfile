@@ -20,17 +20,19 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     unixodbc-dev \
     && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /app
+WORKDIR /home/src
 
-COPY requirements.txt /app/requirements.txt
+COPY requirements.txt /home/src/requirements.txt
 
 RUN pip install --upgrade pip setuptools wheel \
-    && pip install --no-cache-dir -r /app/requirements.txt \
-    && python -c "import mage_ai, pandas, pyarrow, jinja2, markupsafe; print('Dependencias OK')"
+    && pip install --no-cache-dir -r /home/src/requirements.txt \
+    && pip install --no-cache-dir --upgrade "Jinja2>=3.1.5" \
+    && python -c "import mage_ai, pandas, pyarrow, jinja2, markupsafe; print('Dependencias OK - Jinja2:', jinja2.__version__)"
 
-COPY start.sh /app/start.sh
-RUN chmod +x /app/start.sh
+COPY . /home/src/
 
-EXPOSE 6789
+RUN chmod +x /home/src/start.sh
 
-CMD ["/app/start.sh"]
+EXPOSE 8080
+
+CMD ["/home/src/start.sh"]
